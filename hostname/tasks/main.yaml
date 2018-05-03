@@ -1,0 +1,8 @@
+- name: View All the Host Names
+  command: hostnamectl status
+  register: hostname_status
+
+- debug: msg = "{{ hostname_status.stdout }}"
+
+- name: Set All the Host Names
+  command: hostnamectl set-hostname "{{ NEW_HOSTNAME }}"
