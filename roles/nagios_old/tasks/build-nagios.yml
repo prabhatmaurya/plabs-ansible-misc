@@ -1,0 +1,38 @@
+- name: download nagios  tarball
+  get_url:
+    dest: "/tmp"
+    url: "{{nagios_plugin_tarball}}"
+
+- name: untar the tarball
+  become: yes
+  unarchive:
+    src: "/tmp/nagios-{{nagios_'version}}.tar.gz"
+    dest: "{{nagios_build_directory}}"
+    copy: no
+
+- name: configure
+  command: "./configure --with-command-group=nagcmd"
+  args:
+    chdir: "{{nagios_build_directory}}/nagios-{{nagios_'version}}"
+
+- name: make
+  command: "make all"
+  args:
+    chdir: "{{nagios_build_directory}}/nagios-{{nagios_'version}}"
+
+- name: install nagios plugins package
+  command: "{{ item }}"
+  with_items:
+    - make install
+    - make install-commandmode
+    - make install-init
+    - make install-config
+    - make install-webconf
+  args:
+    chdir: "{{nagios_build_directory}}/nagios-{{nagios_'version}}"
+
+
+- name: Add apache user in nagcmd group
+  user:
+    groups: nagcmd
+    name: apache

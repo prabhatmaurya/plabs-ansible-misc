@@ -1,0 +1,6 @@
+- name: Install mysql
+  yum: name={{ item }} state=present
+  notify:
+    - restart mysql
+  with_items: "{{ prerequisite_packages }}"
+- meta: flush_handlers

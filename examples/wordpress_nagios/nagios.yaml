@@ -1,0 +1,11 @@
+- hosts: all
+  become: yes
+  roles:
+    - {role: '../../roles/server'}
+    - {role: '../../roles/nagios'}
+  vars:
+      dbservers:
+        - ['db','192.168.10.100']
+      webservers:
+        - ['web','192.168.10.100']
+      mon_mysql_password: m0nUserP2\$\$w0rd

@@ -1,0 +1,15 @@
+nagios_packages:
+    - gcc
+    - glibc
+    - glibc-common
+    - gd
+    - gd-devel
+    - make
+    - net-snmp
+    - openssl-devel
+    - xinetd
+    - unzip
+    - httpd
+    - mariadb-server
+    - php
+    - php-mysql

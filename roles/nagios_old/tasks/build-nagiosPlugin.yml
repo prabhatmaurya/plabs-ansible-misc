@@ -1,0 +1,25 @@
+- name: Download Nagios Plugins
+  get_url:
+    url: "{{ nagios_plugin_tarball }}"
+    dest: /root
+
+- name: Unzip Nagios Plugins
+  unarchive:
+    src: /root/nagios-plugins-{{ nagios_plugins_version }}.tar.gz
+    dest: /root/nagios-plugins
+    copy: no
+
+- name: Configure Nagios Plugin
+  command: "./configure --with-nagios-user=nagios --with-nagios-group=nagios --with-openssl"
+  args:
+    chdir: /root/nagios-plugins
+
+- name: Compile Nagios Plugin
+  command: "make"
+  args:
+    chdir: /root/nagios-plugins
+
+- name: Install Nagios Plugin
+  command: "make install"
+  args:
+    chdir: /root/nagios-plugins

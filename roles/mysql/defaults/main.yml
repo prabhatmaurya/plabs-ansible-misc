@@ -1,0 +1,3 @@
+mysql_root_user: root
+mysql_root_old_password: ''
+mysql_root_password: admin@123

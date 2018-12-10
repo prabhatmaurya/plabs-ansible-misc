@@ -1,0 +1,23 @@
+# {{ ansible_managed }}
+
+define hostgroup {
+	hostgroup_name webservers
+        alias Web Servers
+}
+
+{% for host in webservers %}
+  define host {
+    use                     linux-server
+    host_name               {{ host[0] }}
+    alias                   {{ host[0] }}
+    address                 {{ host[1] }}
+    hostgroups              webservers
+  }
+{% endfor %}
+define service{
+    use local-service
+    hostgroup                       webservers
+    service_description             URL: wordpress
+    check_command                   check_http_url!wordpress
+
+}

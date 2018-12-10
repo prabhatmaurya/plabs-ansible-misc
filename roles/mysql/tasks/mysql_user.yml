@@ -1,0 +1,27 @@
+- name: delete anonymous MySQL server user for {{ ansible_hostname }}
+  mysql_user:
+    name: "{{ mysql_root_old_password }}"
+    host: "{{ item }}"
+    state: absent
+  with_items:
+    - localhost
+    - "{{ ansible_hostname }}"
+
+- name: remove the MySQL test database
+  mysql_db:
+    name: test
+    state: absent
+
+- name: Change root user password on first run
+  mysql_user:
+    login_user: "{{ mysql_root_user }}"
+    login_password: ''
+    name: "{{ mysql_root_user }}"
+    password: "{{ mysql_root_password }}"
+    priv: '*.*:ALL,GRANT'
+    host: "{{ item }}"
+  with_items:
+    - "{{ ansible_hostname }}"
+    - 127.0.0.1
+    - ::1
+    - localhost

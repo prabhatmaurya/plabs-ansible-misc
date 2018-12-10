@@ -1,0 +1,8 @@
+wp_mysql_db: "wpdb"
+wp_mysql_user: "wpuser"
+wp_mysql_password: "wp@pass"
+mysql_root_user: "root"
+mysql_root_password: "admin@123"
+config_template: "wp-config-sample.php.j2"
+mon_mysql_user: "nagios"
+mon_mysql_password: "nagios@123"

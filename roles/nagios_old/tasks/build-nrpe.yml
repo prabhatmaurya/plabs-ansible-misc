@@ -1,0 +1,29 @@
+- name: Download NRPE
+  get_url:
+    url: "{{ nagios_nrpe_tarball }}"
+    dest: "/root/"
+
+- name: Extract NRPE
+  unarchive:
+    src: "/root/nrpe-{{ nagios_nrpe_tversion }}-tar.gz"
+    dest: "/root/nrpe"
+    copy: no
+
+- name: Confidure NRPE
+  command: "./configure --enable-command-args --with-nagios-user=nagios --with-nagios-group=nagios --with-ssl=/usr/bin/openssl --with-ssl-lib=/usr/lib/x86_64-linux-gnu"
+  args:
+    chdir: /root/nrpe
+
+- name: Compile NRPE
+  command: "make all"
+  args:
+    chdir: /root/nrpe
+
+- name: Install NRPE
+  command: "{{ item }}"
+  with_items:
+    - make install
+    - make install-xinetd
+    - make install-daemon-config
+    args:
+      chdir: /root/nrpe

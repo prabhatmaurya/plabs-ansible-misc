@@ -1,0 +1,10 @@
+- name: Update nagios configure
+  replace:
+    path: /usr/local/nagios/etc/nagios.cfg
+    regexp: "#cfg_dir=/usr/local/nagios/etc/servers"
+    replace: "cfg_dir=/usr/local/nagios/etc/servers"
+
+- name: Create config dir
+  file:
+    dest: /usr/local/nagios/etc/servers
+    state: directory

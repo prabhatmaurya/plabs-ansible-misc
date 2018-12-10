@@ -1,0 +1,2 @@
+- include: wp_db.yml
+- include: wp_app.yml

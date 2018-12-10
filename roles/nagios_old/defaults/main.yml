@@ -1,0 +1,7 @@
+nagios_build_directory: "/usr/local/nagios"
+nagios_tarball: "https://assets.nagios.com/downloads/nagioscore/releases/nagios-4.1.1.tar.gz"
+nagios_version: "4.1.1"
+nagios_plugin_tarball: "http://nagios-plugins.org/download/nagios-plugins-2.1.1.tar.gz"
+nagios_plugins_version: "2.1.1"
+nagios_nrpe_tarball: "http://downloads.sourceforge.net/project/nagios/nrpe-2.x/nrpe-2.15/nrpe-2.15.tar.gz"
+nagios_nrpe_version: "2.15"

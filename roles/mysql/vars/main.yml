@@ -1,0 +1,3 @@
+prerequisite_packages:
+    - mariadb-server
+    - MySQL-python

@@ -1,0 +1,22 @@
+- name: Create MariaDB database
+  mysql_db:
+    name: "{{ wp_mysql_db }}"
+    state: present
+
+- name: Create MariaDB username and password for app
+  mysql_user:
+    login_user: "{{ mysql_root_user }}"
+    login_password: "{{ mysql_root_password }}"
+    name: "{{ wp_mysql_user }}"
+    password: "{{ wp_mysql_password }}"
+    priv: '{{ wp_mysql_db }}.*:ALL'
+
+
+- name: Create MariaDB username and password for Monitoring
+  mysql_user:
+    login_user: "{{ mysql_root_user }}"
+    login_password: "{{ mysql_root_password }}"
+    name: "{{ mon_mysql_user }}"
+    password: "{{ mon_mysql_password }}"
+    priv: '*.*:ALL'
+    host: "{{ nagios_server }}"

@@ -1,0 +1,12 @@
+- name: Install NRPE plugins
+  yum:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ require_packagesrequire_packages }}"
+
+- name: Update nrpe config
+  template:
+      src: nrpe.cfg.j2
+      dest: /etc/nagios/nrpe.cfg
+  notify:
+    - restart nrpe

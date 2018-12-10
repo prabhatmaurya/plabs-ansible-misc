@@ -1,0 +1,13 @@
+- hosts: all
+  become: yes
+  roles:
+    - {role: '../../roles/server'}
+    - {role: '../../roles/mysql'}
+    - {role: '../../roles/php'}
+    - {role: '../../roles/wordpress'}
+    - {role: '../../roles/nagios-nrpe'}
+  vars:
+    mysql_root_password:
+    wp_mysql_password: wpUserP2$$w0rd
+    mon_mysql_password: m0nUserP2$$w0rd
+    nagios_server: 192.168.10.101

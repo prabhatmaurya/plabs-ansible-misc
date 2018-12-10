@@ -1,0 +1,27 @@
+- name: install nagios dependent packages
+  yum: name="{{ item }}" state=present
+  with_items: "{{ nagios_packages }}"
+
+
+ # Create nagios users and groups.
+- name: create nagios group
+  group: >
+    gid=3000
+    name=nagios
+
+- name: create nagcmd group
+  group: >
+    gid=3001
+    name=nagcmd
+
+- name: create nagios user
+  user: >
+    uid=3000
+    group=nagios
+    groups=nagcmd
+    name=nagios
+    home="{{ nagios_build_directory }}"
+    comment="Nagios Admin"
+
+- name: Build nagios
+  include: build-nagios.yml
