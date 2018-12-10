@@ -10,8 +10,8 @@ Configuration
 
     $ mkdir workdir
     $ cd workdir
-    $ git clone https://github.com/prabhatmaurya/pVagrant.git
-    $ cd ch4
+    $ git clone https://github.com/prabhatmaurya/plabs-ansible-misc.git
+    $ cd plabs-ansible-misc/examples/wordpress_nagios
     $ vagrant up
 ~~~~~~~~~~~~~
 
