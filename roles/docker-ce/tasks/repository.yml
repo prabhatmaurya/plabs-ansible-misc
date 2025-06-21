@@ -1,0 +1,30 @@
+- name: Add Docker GPG key (CentOS/RHEL)
+  rpm_key:
+    key: "{{ docker_gpg_key_url_centos }}"
+    state: present
+  when: ansible_os_family == "RedHat"
+
+- name: Add Docker GPG key (Ubuntu)
+  apt_key:
+    url: "{{ docker_gpg_key_url_ubuntu }}"
+    state: present
+  when: ansible_os_family == "Debian"
+
+- name: Add Docker CE repository (CentOS/RHEL)
+  yum_repository:
+    name: docker-ce-stable
+    description: Docker CE Stable - $basearch
+    baseurl: "{{ docker_repository_url_centos }}"
+    gpgcheck: yes
+    gpgkey: "{{ docker_gpg_key_url_centos }}"
+    enabled: yes
+  when: ansible_os_family == "RedHat"
+  notify: restart docker
+
+- name: Add Docker CE repository (Ubuntu)
+  apt_repository:
+    repo: "deb [arch=amd64] {{ docker_repository_url_ubuntu }}"
+    state: present
+    filename: docker
+  when: ansible_os_family == "Debian"
+  notify: restart docker 

@@ -1,0 +1,11 @@
+- name: Install Docker CE prerequisites
+  include_tasks: prerequisites.yml
+
+- name: Add Docker CE repository
+  include_tasks: repository.yml
+
+- name: Install Docker CE
+  include_tasks: install.yml
+
+- name: Configure Docker
+  include_tasks: configure.yml 

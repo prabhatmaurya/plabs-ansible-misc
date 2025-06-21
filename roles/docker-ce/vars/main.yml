@@ -1,0 +1,50 @@
+# Packages to remove (old Docker versions) - CentOS/RHEL
+docker_old_packages_centos:
+  - docker
+  - docker-client
+  - docker-client-latest
+  - docker-common
+  - docker-latest
+  - docker-latest-logrotate
+  - docker-logrotate
+  - docker-engine
+
+# Packages to remove (old Docker versions) - Ubuntu
+docker_old_packages_ubuntu:
+  - docker
+  - docker.io
+  - docker-doc
+  - docker-compose
+  - docker-compose-v2
+  - docker-buildx-plugin
+  - docker-scan-plugin
+
+# Prerequisites packages - CentOS/RHEL
+docker_prerequisites_centos:
+  - yum-utils
+  - device-mapper-persistent-data
+  - lvm2
+
+# Prerequisites packages - Ubuntu
+docker_prerequisites_ubuntu:
+  - apt-transport-https
+  - ca-certificates
+  - curl
+  - gnupg
+  - lsb-release
+
+# Docker CE packages to install - CentOS/RHEL
+docker_packages_centos:
+  - docker-ce
+  - docker-ce-cli
+  - containerd.io
+  - docker-buildx-plugin
+  - docker-compose-plugin
+
+# Docker CE packages to install - Ubuntu
+docker_packages_ubuntu:
+  - docker-ce
+  - docker-ce-cli
+  - containerd.io
+  - docker-buildx-plugin
+  - docker-compose-plugin 

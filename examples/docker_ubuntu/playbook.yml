@@ -1,0 +1,59 @@
+---
+- name: Install Docker CE on Ubuntu
+  hosts: ubuntu_servers
+  become: yes
+  vars:
+    # Ubuntu-specific Docker configuration
+    docker_daemon_config:
+      log-driver: "json-file"
+      log-opts:
+        max-size: "10m"
+        max-file: "3"
+      storage-driver: "overlay2"
+      storage-opts:
+        - "overlay2.override_kernel_check=true"
+      # Ubuntu-specific settings
+      live-restore: true
+      userland-proxy: false
+    
+    # Add users to docker group (Ubuntu users)
+    docker_users:
+      - ubuntu
+      - ansible
+      # Add your Ubuntu username here
+    
+    # Remove old Docker versions (recommended for Ubuntu)
+    docker_remove_old_versions: true
+
+  roles:
+    - docker-ce
+
+  post_tasks:
+    - name: Update apt cache after Docker installation
+      apt:
+        update_cache: yes
+      when: ansible_os_family == "Debian"
+
+    - name: Test Docker installation
+      command: docker run hello-world
+      register: docker_test
+      changed_when: false
+      failed_when: false
+
+    - name: Display Docker test result
+      debug:
+        msg: "Docker test: {{ docker_test.stdout_lines }}"
+      when: docker_test.rc == 0
+
+    - name: Display Ubuntu and Docker information
+      debug:
+        msg: "Docker CE installed on {{ ansible_distribution }} {{ ansible_distribution_version }} ({{ ansible_distribution_release }})"
+
+    - name: Show Docker version
+      command: docker --version
+      register: docker_version
+      changed_when: false
+
+    - name: Display Docker version
+      debug:
+        msg: "{{ docker_version.stdout }}" 

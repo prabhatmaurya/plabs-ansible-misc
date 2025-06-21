@@ -1,0 +1,7 @@
+[docker_servers]
+# Add your target servers here
+# server1 ansible_host=192.168.1.10
+# server2 ansible_host=192.168.1.11
+
+# For testing on localhost
+localhost ansible_connection=local 

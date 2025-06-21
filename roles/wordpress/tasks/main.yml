@@ -1,2 +1,2 @@
-- include: wp_db.yml
-- include: wp_app.yml
+- include_tasks: wp_db.yml
+- include_tasks: wp_app.yml
