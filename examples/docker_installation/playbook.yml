@@ -1,0 +1,44 @@
+---
+- name: Install Docker CE
+  hosts: all
+  become: yes
+  vars:
+    # Optional: Configure Docker daemon
+    docker_daemon_config:
+      log-driver: "json-file"
+      log-opts:
+        max-size: "10m"
+        max-file: "3"
+      storage-driver: "overlay2"
+      storage-opts:
+        - "overlay2.override_kernel_check=true"
+      # Uncomment to add insecure registries
+      # insecure-registries:
+      #   - "registry.example.com:5000"
+    
+    # Optional: Add users to docker group
+    docker_users:
+      - ansible
+      # - your_username
+    
+    # Optional: Disable removal of old Docker versions
+    # docker_remove_old_versions: false
+
+  roles:
+    - docker-ce
+
+  post_tasks:
+    - name: Test Docker installation
+      command: docker run hello-world
+      register: docker_test
+      changed_when: false
+      failed_when: false
+
+    - name: Display Docker test result
+      debug:
+        msg: "Docker test: {{ docker_test.stdout_lines }}"
+      when: docker_test.rc == 0
+
+    - name: Display OS information
+      debug:
+        msg: "Docker CE installed on {{ ansible_distribution }} {{ ansible_distribution_version }}" 

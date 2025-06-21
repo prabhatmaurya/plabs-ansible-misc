@@ -1,0 +1,24 @@
+---
+galaxy_info:
+  author: PLabs
+  description: Install and configure Docker CE
+  company: PLabs
+  license: MIT
+  min_ansible_version: 2.9
+  platforms:
+    - name: EL
+      versions:
+        - 7
+        - 8
+    - name: Ubuntu
+      versions:
+        - 20.04
+        - 22.04
+        - 24.04
+  galaxy_tags:
+    - docker
+    - container
+    - ce
+    - installation
+
+dependencies: [] 

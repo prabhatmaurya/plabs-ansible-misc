@@ -1,0 +1,40 @@
+- name: Remove old versions of Docker (CentOS/RHEL)
+  package:
+    name: "{{ item }}"
+    state: absent
+  with_items: "{{ docker_old_packages_centos }}"
+  when: 
+    - docker_remove_old_versions | bool
+    - ansible_os_family == "RedHat"
+
+- name: Remove old versions of Docker (Ubuntu)
+  apt:
+    name: "{{ item }}"
+    state: absent
+    autoremove: yes
+  with_items: "{{ docker_old_packages_ubuntu }}"
+  when: 
+    - docker_remove_old_versions | bool
+    - ansible_os_family == "Debian"
+
+- name: Install required packages (CentOS/RHEL)
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ docker_prerequisites_centos }}"
+  when: ansible_os_family == "RedHat"
+  notify: restart docker
+
+- name: Install required packages (Ubuntu)
+  apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: yes
+  with_items: "{{ docker_prerequisites_ubuntu }}"
+  when: ansible_os_family == "Debian"
+  notify: restart docker
+
+- name: Ensure Docker group exists
+  group:
+    name: docker
+    state: present 

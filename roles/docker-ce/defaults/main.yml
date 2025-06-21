@@ -1,0 +1,23 @@
+# Docker CE installation settings
+docker_remove_old_versions: true
+
+# Docker GPG key URLs (OS-specific)
+docker_gpg_key_url_centos: https://download.docker.com/linux/centos/gpg
+docker_gpg_key_url_ubuntu: https://download.docker.com/linux/ubuntu/gpg
+
+# Docker repository URLs (OS-specific)
+docker_repository_url_centos: https://download.docker.com/linux/centos/{{ ansible_distribution_major_version }}/x86_64/stable
+docker_repository_url_ubuntu: https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable
+
+# Docker daemon configuration (optional)
+docker_daemon_config:
+  log-driver: "json-file"
+  log-opts:
+    max-size: "10m"
+    max-file: "3"
+  storage-driver: "overlay2"
+  storage-opts:
+    - "overlay2.override_kernel_check=true"
+
+# Users to add to docker group (optional)
+docker_users: [] 

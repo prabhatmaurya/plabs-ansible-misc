@@ -1,0 +1,22 @@
+- name: Install Docker CE (CentOS/RHEL)
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ docker_packages_centos }}"
+  when: ansible_os_family == "RedHat"
+  notify: restart docker
+
+- name: Install Docker CE (Ubuntu)
+  apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: yes
+  with_items: "{{ docker_packages_ubuntu }}"
+  when: ansible_os_family == "Debian"
+  notify: restart docker
+
+- name: Start and enable Docker service
+  service:
+    name: docker
+    state: started
+    enabled: yes 
