@@ -18,6 +18,4 @@
 - name: Start and enable Docker service
   service:
     name: docker
-    state: started
     enabled: yes
-  ignore_error: true
