@@ -19,4 +19,5 @@
   service:
     name: docker
     state: started
-    enabled: yes 
+    enabled: yes
+  ignore_error true
