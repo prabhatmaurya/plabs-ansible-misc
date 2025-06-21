@@ -1,2 +1,2 @@
-- include: mysql.yml
-- include: mysql_user.yml
+- include_tasks: mysql.yml
+- include_tasks: mysql_user.yml

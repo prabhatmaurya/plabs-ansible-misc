@@ -24,4 +24,4 @@
     comment="Nagios Admin"
 
 - name: Build nagios
-  include: build-nagios.yml
+  include_tasks: build-nagios.yml
