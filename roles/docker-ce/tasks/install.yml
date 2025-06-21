@@ -20,4 +20,4 @@
     name: docker
     state: started
     enabled: yes
-  ignore_error true
+  ignore_error: true
