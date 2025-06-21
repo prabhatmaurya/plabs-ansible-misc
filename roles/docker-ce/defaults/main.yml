@@ -16,8 +16,7 @@ docker_daemon_config:
     max-size: "10m"
     max-file: "3"
   storage-driver: "overlay2"
-  storage-opts:
-    - "overlay2.override_kernel_check=true"
+ 
 
 # Users to add to docker group (optional)
 docker_users: [] 
